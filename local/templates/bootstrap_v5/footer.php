@@ -7,7 +7,7 @@
 			<p class="col-md-4 mb-0 text-muted">© 2022 Ковшик А.С.</p>
 
 			<a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-			<img src="/local/templates/bootstrap_v4/images/logo.png" width="40" height="40" class="d-inline-block align-top" alt="">
+			<img src="/local/templates/bootstrap_v5/images/logo.png" width="40" height="40" class="d-inline-block align-top" alt="">
 			</a>
 
 			<ul class="nav col-md-4 justify-content-end">

@@ -6,6 +6,7 @@ CJSCore::Init(array("fx"));
 
 $curPage = $APPLICATION->GetCurPage(true);
 $curSection = explode('/', $curPage)[1];
+global $USER;
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +26,7 @@ $curSection = explode('/', $curPage)[1];
 	<div class="container">
 		<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 			<a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-				<img src="/local/templates/bootstrap_v4/images/logo.png" width="48" height="48" class="d-inline-block align-top" alt="">
+				<img src="/local/templates/bootstrap_v5/images/logo.png" width="48" height="48" class="d-inline-block align-top" alt="">
 			</a>
 
 			<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
@@ -37,8 +38,18 @@ $curSection = explode('/', $curPage)[1];
 			</ul>
 
 			<div class="col-md-3 text-end">
-				<button type="button" class="btn btn-outline-primary me-2">Войти</button>
-				<button type="button" class="btn btn-primary">Регистрация</button>
+				<?$APPLICATION->IncludeComponent(
+					"bitrix:system.auth.form", 
+					"auth_header_bootstrap_v5", 
+					array(
+						"COMPONENT_TEMPLATE" => ".default",
+						"REGISTER_URL" => "/register.php",
+						"FORGOT_PASSWORD_URL" => "/forgot.php",
+						"PROFILE_URL" => "/profile.php",
+						"SHOW_ERRORS" => "N"
+					),
+					false
+				);?>
 			</div>
 		</header>
 	</div>
