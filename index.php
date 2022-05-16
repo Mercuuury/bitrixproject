@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("1С-Битрикс: Управление сайтом");
+$APPLICATION->SetTitle("Игровой интернет-портал");
 ?>
 
 Пустая страница. <a href="/bitrix/admin/">Перейти в Панель Управления</a>.
