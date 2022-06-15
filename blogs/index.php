@@ -2,16 +2,18 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Блоги");
 ?><?$APPLICATION->IncludeComponent(
-	"bitrix:blog",
-	"blog_bootstrap_v5",
-	Array(
+	"bitrix:blog", 
+	"blog_bootstrap_v5", 
+	array(
 		"AJAX_PAGINATION" => "N",
 		"ALLOW_POST_CODE" => "Y",
 		"ALLOW_POST_MOVE" => "N",
 		"BLOG_COUNT" => "20",
 		"BLOG_COUNT_MAIN" => "6",
-		"BLOG_PROPERTY" => "",
-		"BLOG_PROPERTY_LIST" => "",
+		"BLOG_PROPERTY" => array(
+		),
+		"BLOG_PROPERTY_LIST" => array(
+		),
 		"CACHE_TIME" => "3600",
 		"CACHE_TIME_LONG" => "604800",
 		"CACHE_TYPE" => "A",
@@ -23,13 +25,17 @@ $APPLICATION->SetTitle("Блоги");
 		"COMMENT_EDITOR_CODE_DEFAULT" => "N",
 		"COMMENT_EDITOR_DEFAULT_HEIGHT" => "200",
 		"COMMENT_EDITOR_RESIZABLE" => "Y",
-		"COMMENT_PROPERTY" => "",
-		"COMPONENT_TEMPLATE" => ".default",
+		"COMMENT_PROPERTY" => array(
+		),
+		"COMPONENT_TEMPLATE" => "blog_bootstrap_v5",
 		"DATE_TIME_FORMAT" => "d.m.Y H:i:s",
 		"EDITOR_CODE_DEFAULT" => "N",
 		"EDITOR_DEFAULT_HEIGHT" => "300",
 		"EDITOR_RESIZABLE" => "Y",
-		"GROUP_ID" => array(0=>"1",1=>"",),
+		"GROUP_ID" => array(
+			0 => "1",
+			1 => "",
+		),
 		"IMAGE_MAX_HEIGHT" => "",
 		"IMAGE_MAX_WIDTH" => "",
 		"MESSAGE_COUNT" => "25",
@@ -44,10 +50,12 @@ $APPLICATION->SetTitle("Блоги");
 		"PERIOD" => "",
 		"PERIOD_DAYS" => "30",
 		"PERIOD_NEW_TAGS" => "",
-		"POST_PROPERTY" => "",
-		"POST_PROPERTY_LIST" => "",
+		"POST_PROPERTY" => array(
+		),
+		"POST_PROPERTY_LIST" => array(
+		),
 		"RATING_TYPE" => "",
-		"SEF_MODE" => "N",
+		"SEF_MODE" => "Y",
 		"SEO_USE" => "Y",
 		"SEO_USER" => "N",
 		"SET_NAV_CHAIN" => "Y",
@@ -62,13 +70,50 @@ $APPLICATION->SetTitle("Блоги");
 		"USER_CONSENT_ID" => "0",
 		"USER_CONSENT_IS_CHECKED" => "Y",
 		"USER_CONSENT_IS_LOADED" => "N",
-		"USER_PROPERTY" => "",
+		"USER_PROPERTY" => array(
+		),
 		"USER_PROPERTY_NAME" => "",
 		"USE_ASC_PAGING" => "N",
 		"USE_GOOGLE_CODE" => "Y",
 		"USE_SHARE" => "N",
-		"VARIABLE_ALIASES" => array("blog"=>"blog","post_id"=>"post_id","user_id"=>"user_id","page"=>"page","group_id"=>"group_id",),
-		"WIDTH" => "100%"
-	)
+		"WIDTH" => "100%",
+		"SEF_FOLDER" => "/blogs/",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO",
+		"SEF_URL_TEMPLATES" => array(
+			"index_" => "index.php",
+			"group" => "group/#group_id#/",
+			"blog" => "#blog#/",
+			"user" => "user/#user_id#/",
+			"user_friends" => "friends/#user_id#/",
+			"search" => "search.php",
+			"user_settings" => "#blog#/user_settings.php",
+			"user_settings_edit" => "#blog#/user_settings_edit.php?id=#user_id#",
+			"group_edit" => "#blog#/group_edit.php",
+			"blog_edit" => "#blog#/blog_edit.php",
+			"category_edit" => "#blog#/category_edit.php",
+			"post_edit" => "#blog#/post_edit.php?id=#post_id#",
+			"draft" => "#blog#/draft.php",
+			"moderation" => "#blog#/moderation.php",
+			"trackback" => POST_FORM_ACTION_URI.'&blog=#blog#&id=#post_id#&page=trackback',
+			"post" => "#blog#/#post_id#/",
+			"post_rss" => "#blog#/rss/#type#/#post_id#",
+			"rss" => "#blog#/rss/#type#",
+			"rss_all" => "rss/#type#/#group_id#",
+		),
+		"VARIABLE_ALIASES" => array(
+			"user_settings_edit" => array(
+				"user_id" => "id",
+			),
+			"post_edit" => array(
+				"post_id" => "id",
+			),
+			"trackback" => array(
+				"blog" => "blog",
+				"post_id" => "id",
+			),
+		)
+	),
+	false
 );?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

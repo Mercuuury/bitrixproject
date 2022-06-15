@@ -1,0 +1,26 @@
+.jumbotrons:hover .jumbotron:not(:hover) {
+    filter: grayscale(100%);
+}
+
+.jumbotron {
+    text-shadow: 2px 2px 2px #000000;
+    cursor: pointer;
+    transition: .3s;
+    position: relative;
+}
+.jumbotron a {
+    text-shadow: none;
+}
+
+.jumbotron-news {
+    background-image: url("images/news.jpg");
+    background-size: cover;
+}
+.jumbotron-articles {
+    background-image: url("images/articles.jpg");
+    background-size: cover;
+}
+.jumbotron-blog {
+    background-image: url("images/blog.jpg");
+    background-size: cover;
+}

@@ -1,5 +1,71 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-<div class="body-blog">
+<style>
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+	font-weight: 500;
+}
+.display-4 {
+	font-size: 2.5rem;
+}
+@media (min-width: 768px) {
+	.display-4 {
+		font-size: 3rem;
+	}
+}
+.nav-scroller {
+	position: relative;
+	z-index: 2;
+	height: 2.75rem;
+	overflow-y: hidden;
+}
+.nav-scroller .nav {
+	display: flex;
+	flex-wrap: nowrap;
+	padding-bottom: 1rem;
+	margin-top: -1px;
+	overflow-x: auto;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+}
+.nav-scroller .nav-link {
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+	font-size: .875rem;
+}
+.card-img-right {
+	height: 100%;
+	border-radius: 0 3px 3px 0;
+}
+.flex-auto {
+	flex: 0 0 auto;
+}
+.h-250 { height: 250px; }
+@media (min-width: 768px) {
+	.h-md-250 { height: 250px; }
+}
+.bs-blog-post {
+	margin-bottom: 4rem;
+}
+	.bs-blog-post-title {
+	margin-bottom: .25rem;
+	font-size: 2.5rem;
+}
+.bs-blog-post-title a {
+	text-decoration: none;
+	color: black;
+}
+.bs-blog-post-title a:hover {
+	color: grey;
+}
+.bs-blog-post-meta {
+	margin-bottom: 1.25rem;
+	color: #727272;
+}	
+.blog-post-content {
+	padding: 0 0 1.25rem 0;
+}
+</style>
 <?
 $APPLICATION->IncludeComponent(
 	"bitrix:blog.menu",
@@ -27,191 +93,8 @@ $APPLICATION->IncludeComponent(
 	$component
 );
 ?>
-		
-	<div class="blog-sidebar">
-		<?
-		$APPLICATION->IncludeComponent(
-				"bitrix:blog.info",
-				"avatar",
-				Array(
-						"BLOG_VAR"		=> $arResult["ALIASES"]["blog"],
-						"USER_VAR"		=> $arResult["ALIASES"]["user_id"],
-						"PAGE_VAR"		=> $arResult["ALIASES"]["page"],
-						"PATH_TO_BLOG"	=> $arResult["PATH_TO_BLOG"],
-						"PATH_TO_POST"	=> $arResult["PATH_TO_POST"],
-						"PATH_TO_USER"	=> $arResult["PATH_TO_USER"],
-						"PATH_TO_BLOG_CATEGORY"	=> $arResult["PATH_TO_BLOG_CATEGORY"],
-						"BLOG_URL"		=> $arResult["VARIABLES"]["blog"],
-						"CATEGORY_ID"	=> $arResult["VARIABLES"]["category"],
-						"CACHE_TYPE"	=> $arResult["CACHE_TYPE"],
-						"CACHE_TIME"	=> $arResult["CACHE_TIME"],
-						"BLOG_PROPERTY_LIST" =>  $arParams["BLOG_PROPERTY_LIST"],
-						"GROUP_ID" 			=> $arParams["GROUP_ID"],
-					),
-				$component 
-			);
-		?>
-		<?
-		$APPLICATION->IncludeComponent(
-			"bitrix:blog.menu",
-			"settings",
-			Array(
-					"BLOG_VAR"				=> $arResult["ALIASES"]["blog"],
-					"POST_VAR"				=> $arResult["ALIASES"]["post_id"],
-					"USER_VAR"				=> $arResult["ALIASES"]["user_id"],
-					"PAGE_VAR"				=> $arResult["ALIASES"]["page"],
-					"PATH_TO_BLOG"			=> $arResult["PATH_TO_BLOG"],
-					"PATH_TO_USER"			=> $arResult["PATH_TO_USER"],
-					"PATH_TO_BLOG_EDIT"		=> $arResult["PATH_TO_BLOG_EDIT"],
-					"PATH_TO_BLOG_INDEX"	=> $arResult["PATH_TO_BLOG_INDEX"],
-					"PATH_TO_DRAFT"			=> $arResult["PATH_TO_DRAFT"],
-					"PATH_TO_POST_EDIT"		=> $arResult["PATH_TO_POST_EDIT"],
-					"PATH_TO_USER_FRIENDS"	=> $arResult["PATH_TO_USER_FRIENDS"],
-					"PATH_TO_USER_SETTINGS"	=> $arResult["PATH_TO_USER_SETTINGS"],
-					"PATH_TO_GROUP_EDIT"	=> $arResult["PATH_TO_GROUP_EDIT"],
-					"PATH_TO_CATEGORY_EDIT"	=> $arResult["PATH_TO_CATEGORY_EDIT"],
-					"PATH_TO_RSS_ALL"		=> $arResult["PATH_TO_RSS_ALL"],
-					"PATH_TO_MODERATION"	=> $arResult["PATH_TO_MODERATION"],
-					"BLOG_URL"				=> $arResult["VARIABLES"]["blog"],
-					"SET_NAV_CHAIN"			=> $arResult["SET_NAV_CHAIN"],
-					"GROUP_ID" 			=> $arParams["GROUP_ID"],
-				),
-			$component
-		);
-		?>
-		<ul>
-			<li class="blog-tags-cloud">
-				<?
-				$APPLICATION->IncludeComponent(
-						"bitrix:blog.info",
-						"",
-						Array(
-								"BLOG_VAR"		=> $arResult["ALIASES"]["blog"],
-								"USER_VAR"		=> $arResult["ALIASES"]["user_id"],
-								"PAGE_VAR"		=> $arResult["ALIASES"]["page"],
-								"PATH_TO_BLOG"	=> $arResult["PATH_TO_BLOG"],
-								"PATH_TO_POST"	=> $arResult["PATH_TO_POST"],
-								"PATH_TO_USER"	=> $arResult["PATH_TO_USER"],
-								"PATH_TO_BLOG_CATEGORY"	=> $arResult["PATH_TO_BLOG_CATEGORY"],
-								"BLOG_URL"		=> $arResult["VARIABLES"]["blog"],
-								"CATEGORY_ID"	=> $arResult["VARIABLES"]["category"],
-								"CACHE_TYPE"	=> $arResult["CACHE_TYPE"],
-								"CACHE_TIME"	=> $arResult["CACHE_TIME"],
-								"BLOG_PROPERTY_LIST" =>  $arParams["BLOG_PROPERTY_LIST"],
-								"GROUP_ID" 			=> $arParams["GROUP_ID"],
-								"NAME_TEMPLATE" => $arParams["NAME_TEMPLATE"],
-								"SHOW_LOGIN" => $arParams["SHOW_LOGIN"],
-								"PATH_TO_CONPANY_DEPARTMENT" => $arParams["PATH_TO_CONPANY_DEPARTMENT"],
-								"PATH_TO_SONET_USER_PROFILE" => $arParams["PATH_TO_SONET_USER_PROFILE"],
-								"PATH_TO_MESSAGES_CHAT" => $arParams["PATH_TO_MESSAGES_CHAT"],
-								"PATH_TO_VIDEO_CALL" => $arParams["PATH_TO_VIDEO_CALL"],
-								"FONT_MAX" => 18, 
-								"FONT_MIN" => 10,
-								"WIDTH" => $arParams["WIDTH"], 
-							),
-						$component 
-					);
-				?>
-			</li>
-		</ul>
-		<?
-		$APPLICATION->IncludeComponent(
-				"bitrix:blog.blog.favorite", 
-				"", 
-				Array(
-						"MESSAGE_COUNT"			=> $arResult["MESSAGE_COUNT"],
-						"BLOG_VAR"				=> $arResult["ALIASES"]["blog"],
-						"POST_VAR"				=> $arResult["ALIASES"]["post_id"],
-						"USER_VAR"				=> $arResult["ALIASES"]["user_id"],
-						"PAGE_VAR"				=> $arResult["ALIASES"]["page"],
-						"PATH_TO_BLOG"			=> $arResult["PATH_TO_BLOG"],
-						"PATH_TO_BLOG_CATEGORY"	=> $arResult["PATH_TO_BLOG_CATEGORY"],
-						"PATH_TO_POST"			=> $arResult["PATH_TO_POST"],
-						"PATH_TO_POST_EDIT"		=> $arResult["PATH_TO_POST_EDIT"],
-						"PATH_TO_USER"			=> $arResult["PATH_TO_USER"],
-						"PATH_TO_SMILE"			=> $arResult["PATH_TO_SMILE"],
-						"BLOG_URL"				=> $arResult["VARIABLES"]["blog"],
-						"YEAR"					=> $arResult["VARIABLES"]["year"],
-						"MONTH"					=> $arResult["VARIABLES"]["month"],
-						"DAY"					=> $arResult["VARIABLES"]["day"],
-						"CATEGORY_ID"			=> $arResult["VARIABLES"]["category"],
-						"CACHE_TYPE"			=> $arResult["CACHE_TYPE"],
-						"CACHE_TIME"			=> $arResult["CACHE_TIME"],
-						"CACHE_TIME_LONG"		=> $arResult["CACHE_TIME_LONG"],
-						"SET_NAV_CHAIN"			=> $arResult["SET_NAV_CHAIN"],
-						"SET_TITLE"				=> $arResult["SET_TITLE"],
-						"DATE_TIME_FORMAT"	=> $arResult["DATE_TIME_FORMAT"],
-						"NAV_TEMPLATE"	=> $arParams["NAV_TEMPLATE"],
-						"GROUP_ID" 			=> $arParams["GROUP_ID"],
-						"ALLOW_POST_CODE" => $arParams["ALLOW_POST_CODE"],
-					),
-				$component 
-			);
-		?>
-		<?
-		$APPLICATION->IncludeComponent(
-				"bitrix:blog.rss.link",
-				"",
-				Array(
-						"RSS1"				=> "N",
-						"RSS2"				=> "Y",
-						"ATOM"				=> "N",
-						"BLOG_VAR"			=> $arResult["ALIASES"]["blog"],
-						"POST_VAR"			=> $arResult["ALIASES"]["post_id"],
-						"GROUP_VAR"			=> $arResult["ALIASES"]["group_id"],
-						"PATH_TO_RSS"		=> $arResult["PATH_TO_RSS"],
-						"PATH_TO_RSS_ALL"	=> $arResult["PATH_TO_RSS_ALL"],
-						"BLOG_URL"			=> $arResult["VARIABLES"]["blog"],
-						"MODE"				=> "B",
-						"PARAM_GROUP_ID" 			=> $arParams["GROUP_ID"],
-					),
-				$component 
-			);
-		?>
-		<?
-		$APPLICATION->IncludeComponent(
-				"bitrix:blog.calendar",
-				"",
-				Array(
-						"BLOG_VAR"		=> $arResult["ALIASES"]["blog"],
-						"PAGE_VAR"		=> $arResult["ALIASES"]["page"],
-						"PATH_TO_BLOG"	=> $arResult["PATH_TO_BLOG"],
-						"BLOG_URL"		=> $arResult["VARIABLES"]["blog"],
-						"YEAR"			=> $arResult["VARIABLES"]["year"],
-						"MONTH"			=> $arResult["VARIABLES"]["month"],
-						"DAY"			=> $arResult["VARIABLES"]["day"],
-						"CACHE_TYPE"	=> $arResult["CACHE_TYPE"],
-						"CACHE_TIME"	=> $arResult["CACHE_TIME"],
-						"GROUP_ID" 			=> $arParams["GROUP_ID"],
-					),
-				$component 
-			);
-		?>
-		<?
-		if(IsModuleInstalled("search"))
-		{
-			$APPLICATION->IncludeComponent(
-					"bitrix:blog.search", 
-					"form", 
-					Array(
-							"PAGE_RESULT_COUNT"	=> 0,
-							"SEARCH_PAGE"		=> $arResult["PATH_TO_SEARCH"],
-							"BLOG_VAR"			=> $arResult["ALIASES"]["blog"],
-							"POST_VAR"			=> $arResult["ALIASES"]["post_id"],
-							"USER_VAR"			=> $arResult["ALIASES"]["user_id"],
-							"PAGE_VAR"			=> $arResult["ALIASES"]["page"],
-							"PATH_TO_BLOG"		=> $arResult["PATH_TO_BLOG"],
-							"PATH_TO_POST"		=> $arResult["PATH_TO_POST"],
-							"PATH_TO_USER"		=> $arResult["PATH_TO_USER"],
-							"SET_TITLE"			=> "N",
-						),
-					$component 
-				);
-
-		}
-		?>
-	</div>
-	<div class="blog-posts">
+<div class="row g-5">
+	<div class="col-md-8">
 		<?
 		$APPLICATION->IncludeComponent(
 			"bitrix:blog.blog", 
@@ -264,6 +147,168 @@ $APPLICATION->IncludeComponent(
 			$component 
 		);
 		?>
-		</div>	
-<div class="blog-clear-float"></div>
+	</div>
+	<div class="col-md-4">
+		<div class="position-sticky" style="top: 2rem;">
+			<!-- <?
+			$APPLICATION->IncludeComponent(
+					"bitrix:blog.info",
+					"avatar",
+					Array(
+							"BLOG_VAR"		=> $arResult["ALIASES"]["blog"],
+							"USER_VAR"		=> $arResult["ALIASES"]["user_id"],
+							"PAGE_VAR"		=> $arResult["ALIASES"]["page"],
+							"PATH_TO_BLOG"	=> $arResult["PATH_TO_BLOG"],
+							"PATH_TO_POST"	=> $arResult["PATH_TO_POST"],
+							"PATH_TO_USER"	=> $arResult["PATH_TO_USER"],
+							"PATH_TO_BLOG_CATEGORY"	=> $arResult["PATH_TO_BLOG_CATEGORY"],
+							"BLOG_URL"		=> $arResult["VARIABLES"]["blog"],
+							"CATEGORY_ID"	=> $arResult["VARIABLES"]["category"],
+							"CACHE_TYPE"	=> $arResult["CACHE_TYPE"],
+							"CACHE_TIME"	=> $arResult["CACHE_TIME"],
+							"BLOG_PROPERTY_LIST" =>  $arParams["BLOG_PROPERTY_LIST"],
+							"GROUP_ID" 			=> $arParams["GROUP_ID"],
+						),
+					$component 
+				);
+			?> -->
+
+			<?
+			$APPLICATION->IncludeComponent(
+				"bitrix:blog.menu",
+				"settings",
+				Array(
+						"BLOG_VAR"				=> $arResult["ALIASES"]["blog"],
+						"POST_VAR"				=> $arResult["ALIASES"]["post_id"],
+						"USER_VAR"				=> $arResult["ALIASES"]["user_id"],
+						"PAGE_VAR"				=> $arResult["ALIASES"]["page"],
+						"PATH_TO_BLOG"			=> $arResult["PATH_TO_BLOG"],
+						"PATH_TO_USER"			=> $arResult["PATH_TO_USER"],
+						"PATH_TO_BLOG_EDIT"		=> $arResult["PATH_TO_BLOG_EDIT"],
+						"PATH_TO_BLOG_INDEX"	=> $arResult["PATH_TO_BLOG_INDEX"],
+						"PATH_TO_DRAFT"			=> $arResult["PATH_TO_DRAFT"],
+						"PATH_TO_POST_EDIT"		=> $arResult["PATH_TO_POST_EDIT"],
+						"PATH_TO_USER_FRIENDS"	=> $arResult["PATH_TO_USER_FRIENDS"],
+						"PATH_TO_USER_SETTINGS"	=> $arResult["PATH_TO_USER_SETTINGS"],
+						"PATH_TO_GROUP_EDIT"	=> $arResult["PATH_TO_GROUP_EDIT"],
+						"PATH_TO_CATEGORY_EDIT"	=> $arResult["PATH_TO_CATEGORY_EDIT"],
+						"PATH_TO_RSS_ALL"		=> $arResult["PATH_TO_RSS_ALL"],
+						"PATH_TO_MODERATION"	=> $arResult["PATH_TO_MODERATION"],
+						"BLOG_URL"				=> $arResult["VARIABLES"]["blog"],
+						"SET_NAV_CHAIN"			=> $arResult["SET_NAV_CHAIN"],
+						"GROUP_ID" 			=> $arParams["GROUP_ID"],
+					),
+				$component
+			);
+			?>
+			<?
+			$APPLICATION->IncludeComponent(
+					"bitrix:blog.info",
+					"",
+					Array(
+							"BLOG_VAR"		=> $arResult["ALIASES"]["blog"],
+							"USER_VAR"		=> $arResult["ALIASES"]["user_id"],
+							"PAGE_VAR"		=> $arResult["ALIASES"]["page"],
+							"PATH_TO_BLOG"	=> $arResult["PATH_TO_BLOG"],
+							"PATH_TO_POST"	=> $arResult["PATH_TO_POST"],
+							"PATH_TO_USER"	=> $arResult["PATH_TO_USER"],
+							"PATH_TO_BLOG_CATEGORY"	=> $arResult["PATH_TO_BLOG_CATEGORY"],
+							"BLOG_URL"		=> $arResult["VARIABLES"]["blog"],
+							"CATEGORY_ID"	=> $arResult["VARIABLES"]["category"],
+							"CACHE_TYPE"	=> $arResult["CACHE_TYPE"],
+							"CACHE_TIME"	=> $arResult["CACHE_TIME"],
+							"BLOG_PROPERTY_LIST" =>  $arParams["BLOG_PROPERTY_LIST"],
+							"GROUP_ID" 			=> $arParams["GROUP_ID"],
+							"NAME_TEMPLATE" => $arParams["NAME_TEMPLATE"],
+							"SHOW_LOGIN" => $arParams["SHOW_LOGIN"],
+							"PATH_TO_CONPANY_DEPARTMENT" => $arParams["PATH_TO_CONPANY_DEPARTMENT"],
+							"PATH_TO_SONET_USER_PROFILE" => $arParams["PATH_TO_SONET_USER_PROFILE"],
+							"PATH_TO_MESSAGES_CHAT" => $arParams["PATH_TO_MESSAGES_CHAT"],
+							"PATH_TO_VIDEO_CALL" => $arParams["PATH_TO_VIDEO_CALL"],
+							"FONT_MAX" => 18, 
+							"FONT_MIN" => 10,
+							"WIDTH" => $arParams["WIDTH"], 
+						),
+					$component 
+				);
+			?>
+			<!-- <?
+			$APPLICATION->IncludeComponent(
+					"bitrix:blog.blog.favorite", 
+					"", 
+					Array(
+							"MESSAGE_COUNT"			=> $arResult["MESSAGE_COUNT"],
+							"BLOG_VAR"				=> $arResult["ALIASES"]["blog"],
+							"POST_VAR"				=> $arResult["ALIASES"]["post_id"],
+							"USER_VAR"				=> $arResult["ALIASES"]["user_id"],
+							"PAGE_VAR"				=> $arResult["ALIASES"]["page"],
+							"PATH_TO_BLOG"			=> $arResult["PATH_TO_BLOG"],
+							"PATH_TO_BLOG_CATEGORY"	=> $arResult["PATH_TO_BLOG_CATEGORY"],
+							"PATH_TO_POST"			=> $arResult["PATH_TO_POST"],
+							"PATH_TO_POST_EDIT"		=> $arResult["PATH_TO_POST_EDIT"],
+							"PATH_TO_USER"			=> $arResult["PATH_TO_USER"],
+							"PATH_TO_SMILE"			=> $arResult["PATH_TO_SMILE"],
+							"BLOG_URL"				=> $arResult["VARIABLES"]["blog"],
+							"YEAR"					=> $arResult["VARIABLES"]["year"],
+							"MONTH"					=> $arResult["VARIABLES"]["month"],
+							"DAY"					=> $arResult["VARIABLES"]["day"],
+							"CATEGORY_ID"			=> $arResult["VARIABLES"]["category"],
+							"CACHE_TYPE"			=> $arResult["CACHE_TYPE"],
+							"CACHE_TIME"			=> $arResult["CACHE_TIME"],
+							"CACHE_TIME_LONG"		=> $arResult["CACHE_TIME_LONG"],
+							"SET_NAV_CHAIN"			=> $arResult["SET_NAV_CHAIN"],
+							"SET_TITLE"				=> $arResult["SET_TITLE"],
+							"DATE_TIME_FORMAT"	=> $arResult["DATE_TIME_FORMAT"],
+							"NAV_TEMPLATE"	=> $arParams["NAV_TEMPLATE"],
+							"GROUP_ID" 			=> $arParams["GROUP_ID"],
+							"ALLOW_POST_CODE" => $arParams["ALLOW_POST_CODE"],
+						),
+					$component 
+				);
+			?> -->
+			<?
+			$APPLICATION->IncludeComponent(
+					"bitrix:blog.calendar",
+					"",
+					Array(
+							"BLOG_VAR"		=> $arResult["ALIASES"]["blog"],
+							"PAGE_VAR"		=> $arResult["ALIASES"]["page"],
+							"PATH_TO_BLOG"	=> $arResult["PATH_TO_BLOG"],
+							"BLOG_URL"		=> $arResult["VARIABLES"]["blog"],
+							"YEAR"			=> $arResult["VARIABLES"]["year"],
+							"MONTH"			=> $arResult["VARIABLES"]["month"],
+							"DAY"			=> $arResult["VARIABLES"]["day"],
+							"CACHE_TYPE"	=> $arResult["CACHE_TYPE"],
+							"CACHE_TIME"	=> $arResult["CACHE_TIME"],
+							"GROUP_ID" 			=> $arParams["GROUP_ID"],
+						),
+					$component 
+				);
+			?>
+			<?
+			if(IsModuleInstalled("search"))
+			{
+				$APPLICATION->IncludeComponent(
+						"bitrix:blog.search", 
+						"form", 
+						Array(
+								"PAGE_RESULT_COUNT"	=> 0,
+								"SEARCH_PAGE"		=> $arResult["PATH_TO_SEARCH"],
+								"BLOG_VAR"			=> $arResult["ALIASES"]["blog"],
+								"POST_VAR"			=> $arResult["ALIASES"]["post_id"],
+								"USER_VAR"			=> $arResult["ALIASES"]["user_id"],
+								"PAGE_VAR"			=> $arResult["ALIASES"]["page"],
+								"PATH_TO_BLOG"		=> $arResult["PATH_TO_BLOG"],
+								"PATH_TO_POST"		=> $arResult["PATH_TO_POST"],
+								"PATH_TO_USER"		=> $arResult["PATH_TO_USER"],
+								"SET_TITLE"			=> "N",
+							),
+						$component 
+					);
+			}
+			?>
+		</div>
+		
+	</div>	
+	<div class="blog-clear-float"></div>
 </div>

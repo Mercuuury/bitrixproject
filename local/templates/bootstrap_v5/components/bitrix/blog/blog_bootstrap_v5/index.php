@@ -1,5 +1,76 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-<div class="body-blog">
+<style>
+h1,h2,h3,h4,h5,h6 {
+	font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+	font-weight: 500;
+}
+.display-4 {
+	font-size: 2.5rem;
+}
+@media (min-width: 768px) {
+	.display-4 {
+		font-size: 3rem;
+	}
+}
+.nav-scroller {
+	position: relative;
+	z-index: 2;
+	height: 2.75rem;
+	overflow-y: hidden;
+}
+.nav-scroller .nav {
+	display: flex;
+	flex-wrap: nowrap;
+	padding-bottom: 1rem;
+	margin-top: -1px;
+	overflow-x: auto;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+}
+.nav-scroller .nav-link {
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+	font-size: .875rem;
+}
+.card-img-right {
+	height: 100%;
+	border-radius: 0 3px 3px 0;
+}
+.flex-auto {
+	flex: 0 0 auto;
+}
+.h-250 {
+	height: 250px;
+}
+@media (min-width: 768px) {
+	.h-md-250 {
+		height: 250px;
+	}
+}
+.bs-blog-post {
+	margin-bottom: 4rem;
+}
+.bs-blog-post-title {
+	margin-bottom: .25rem;
+	font-size: 2.5rem;
+}
+.bs-blog-post-title a {
+	text-decoration: none;
+	color: black;
+}
+.bs-blog-post-title a:hover {
+	color: grey;
+}
+.bs-blog-post-meta {
+	margin-bottom: 1.25rem;
+	color: #727272;
+}
+.blog-post-content {
+	padding: 0 0 1.25rem 0;
+}
+</style>
+<div class="bg-white">
 <div class="blog-mainpage">
 <?$APPLICATION->IncludeComponent(
 	"bitrix:blog.menu",
@@ -79,22 +150,20 @@ function BXBlogTabShow(id, type)
 }
 </script>
 <div class="blog-mainpage-side-left">
-<div class="blog-tab-container">
-	<div class="blog-tab-left"></div>
-	<div class="blog-tab-right"></div>
-	<div class="blog-tab">
-		<div class="blog-tab-title">
-			<span id="new-posts-title"><?=GetMessage("BC_NEW_POSTS_MES")?></span>
-			<span id="commented-posts-title" style="display:none;"><?=GetMessage("BC_COMMENTED_POSTS_MES")?></span>
-			<span id="popular-posts-title" style="display:none;"><?=GetMessage("BC_POPULAR_POSTS_MES")?></span>
-		</div>		
-		<div class="blog-tab-items">
-			<span id="new-posts" style="display:none;"><a href="javascript:BXBlogTabShow('new-posts', 'post');"><?=GetMessage("BC_NEW_POSTS")?></a></span>
-			<span id="commented-posts"><a href="javascript:BXBlogTabShow('commented-posts', 'post');"><?=GetMessage("BC_COMMENTED_POSTS")?></a></span>
-			<span id="popular-posts"><a href="javascript:BXBlogTabShow('popular-posts', 'post');"><?=GetMessage("BC_POPULAR_POSTS")?></a></span>
-		</div>
-	</div>	
-</div>
+	<div>
+		<div class="blog-tab bg-white border-bottom border-opacity-10">
+			<div class="blog-tab-title">
+				<h4 class="fst-italic" id="new-posts-title"><?=GetMessage("BC_NEW_POSTS_MES")?></h4>
+				<h4 class="fst-italic" id="commented-posts-title" style="display:none;"><?=GetMessage("BC_COMMENTED_POSTS_MES")?></h4>
+				<h4 class="fst-italic" id="popular-posts-title" style="display:none;"><?=GetMessage("BC_POPULAR_POSTS_MES")?></h4>
+			</div>		
+			<div class="blog-tab-items">
+				<span class="fst-italic" id="new-posts" style="display:none;"><a href="javascript:BXBlogTabShow('new-posts', 'post');"><?=GetMessage("BC_NEW_POSTS")?></a></span>
+				<span class="fst-italic" id="commented-posts"><a href="javascript:BXBlogTabShow('commented-posts', 'post');"><?=GetMessage("BC_COMMENTED_POSTS")?></a></span>
+				<span class="fst-italic" id="popular-posts"><a href="javascript:BXBlogTabShow('popular-posts', 'post');"><?=GetMessage("BC_POPULAR_POSTS")?></a></span>
+			</div>
+		</div>	
+	</div>
 	<div class="blog-clear-float"></div>
 	<div class="blog-tab-content">
 	<div id="new-posts-content" style="display:block;">
@@ -207,13 +276,11 @@ function BXBlogTabShow(id, type)
 <?if(empty($arParams["GROUP_ID"]) || (is_array($arParams["GROUP_ID"]) && count($arParams["GROUP_ID"]) > 1))
 {
 	?>
-	<div class="blog-tab-container">
-		<div class="blog-tab-left"></div>
-		<div class="blog-tab-right"></div>
-		<div class="blog-tab">
-			<span class="blog-tab-title"><?=GetMessage("BC_GROUPS")?></span>
-		</div>	
-	</div>
+
+	<div class="border-bottom border-opacity-10">
+		<h4 class="fst-italic"><?=GetMessage("BC_GROUPS")?></h4>
+	</div>	
+
 		<div class="blog-tab-content">
 			<?
 			$APPLICATION->IncludeComponent(
@@ -241,13 +308,11 @@ function BXBlogTabShow(id, type)
 <?
 if(IsModuleInstalled("search")):
 ?>
-<div class="blog-tab-container">
-	<div class="blog-tab-left"></div>
-	<div class="blog-tab-right"></div>
-	<div class="blog-tab">
-		<span class="blog-tab-title"><?=GetMessage("BC_SEARCH_TAG")?></span>
+
+	<div class="bg-white border-bottom border-opacity-10">
+		<h4 class="fst-italic"><?=GetMessage("BC_SEARCH_TAG")?></h4>
 	</div>	
-</div>
+
 	<div class="blog-tab-content">
 		<div class="blog-mainpage-search-cloud">
 		<?
@@ -283,10 +348,8 @@ if(IsModuleInstalled("search")):
 	</div>
 <?endif?>
 <div class="blog-tab-container">
-	<div class="blog-tab-left"></div>
-	<div class="blog-tab-right"></div>
-	<div class="blog-tab">
-		<span class="blog-tab-title"><?=GetMessage("BC_NEW_COMMENTS")?></span>
+	<div class="bg-white border-bottom border-opacity-10">
+		<h4 class="fst-italic"><?=GetMessage("BC_NEW_COMMENTS")?></h4>
 	</div>	
 </div>
 	<div class="blog-tab-content">
@@ -322,17 +385,15 @@ if(IsModuleInstalled("search")):
 );
 		?>
 	</div>
-<div class="blog-tab-container">
-	<div class="blog-tab-left"></div>
-	<div class="blog-tab-right"></div>
-	<div class="blog-tab">
+<div class="blog-tab-container bg-white border-bottom border-opacity-10">
+	<div class="blog-tab bg-white">
 		<span class="blog-tab-items">
-			<span id="new-blogs"><a href="javascript:BXBlogTabShow('new-blogs', 'blog');"><?=GetMessage("BC_NEW_BLOGS")?></a></span>
-			<span id="popular-blogs" style="display:none;"><a href="javascript:BXBlogTabShow('popular-blogs', 'blog');"><?=GetMessage("BC_POPULAR_BLOGS")?></a></span>
+			<span class="fst-italic" id="new-blogs"><a href="javascript:BXBlogTabShow('new-blogs', 'blog');"><?=GetMessage("BC_NEW_BLOGS")?></a></span>
+			<span class="fst-italic" id="popular-blogs" style="display:none;"><a href="javascript:BXBlogTabShow('popular-blogs', 'blog');"><?=GetMessage("BC_POPULAR_BLOGS")?></a></span>
 		</span>
 		<span class="blog-tab-title">
-			<span id="new-blogs-title" style="display:none;"><?=GetMessage("BC_NEW_BLOGS_MES")?></span>
-			<span id="popular-blogs-title"><?=GetMessage("BC_POPULAR_BLOGS_MES")?></span>
+			<h4 class="fst-italic" id="new-blogs-title" style="display:none;"><?=GetMessage("BC_NEW_BLOGS_MES")?></h4>
+			<h4 class="fst-italic" id="popular-blogs-title"><?=GetMessage("BC_POPULAR_BLOGS_MES")?></h4>
 		</span>
 	</div>	
 </div>

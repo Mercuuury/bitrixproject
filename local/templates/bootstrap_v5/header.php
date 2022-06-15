@@ -30,7 +30,7 @@ global $USER;
 			</a>
 
 			<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-				<li><a href="/" class="nav-link px-2 <?$curPage == '/index.php' ? print('link-secondary') : print('link-dark');?>">Новости</a></li>
+				<li><a href="/news" class="nav-link px-2 <?$curSection == 'news' ? print('link-secondary') : print('link-dark');?>">Новости</a></li>
 				<li><a href="/articles" class="nav-link px-2 <?$curSection == 'articles' ? print('link-secondary') : print('link-dark');?>">Статьи</a></li>
 				<li><a href="/blogs" class="nav-link px-2 <?$curSection == 'blogs' ? print('link-secondary') : print('link-dark');?>">Блоги</a></li>
 				<li><a href="/about" class="nav-link px-2 <?$curSection == 'about' ? print('link-secondary') : print('link-dark');?>">О проекте</a></li>

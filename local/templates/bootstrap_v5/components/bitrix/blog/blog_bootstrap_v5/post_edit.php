@@ -1,6 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 ?>
-<div class="body-blog">
+<div class="bg-white">
 <?
 $APPLICATION->IncludeComponent(
 	"bitrix:blog.menu",
@@ -78,7 +78,9 @@ if(isset($arParams["USER_CONSENT_IS_CHECKED"]))
 	$componentPostEditParams["USER_CONSENT_IS_CHECKED"] = $arParams["USER_CONSENT_IS_CHECKED"];
 if(isset($arParams["USER_CONSENT_IS_LOADED"]))
 	$componentPostEditParams["USER_CONSENT_IS_LOADED"] = $arParams["USER_CONSENT_IS_LOADED"];
+?>
 
+<?
 $APPLICATION->IncludeComponent(
 	"bitrix:blog.post.edit",
 	"",

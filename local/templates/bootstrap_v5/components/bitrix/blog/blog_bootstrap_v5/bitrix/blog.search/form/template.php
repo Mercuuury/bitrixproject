@@ -5,28 +5,27 @@ if (!$this->__component->__parent || empty($this->__component->__parent->__name)
 	$GLOBALS['APPLICATION']->SetAdditionalCSS('/bitrix/components/bitrix/blog/templates/.default/themes/blue/style.css');
 endif;
 ?>
-<ul>
-	<li class="blog-search">
-		<h3 class="blog-sidebar-title"><?=GetMessage("BLOG_MAIN_SEARCH_SEARCH")?></h3>
-		<div class="blog-search-form">
-		<form method="get" action="<?=$arParams["SEARCH_PAGE"]?>">
+<div class="p-4">
+	<h4 class="fst-italic"><?=GetMessage("BLOG_MAIN_SEARCH_SEARCH")?></h4>
+	<form method="get" action="<?=$arParams["SEARCH_PAGE"]?>">
 		<input type="hidden" name="<?=$arParams["PAGE_VAR"]?>" value="search">
-			<div class="blog-search-text"><input type="text" name="q" size="15" value="<?=$arResult["q"]?>"></div>
-			<div class="blog-search-select">
-				<select name="where">
+		<div class="mb-3">
+			<input class="form-control form-control-sm" type="text" name="q" size="15" value="<?=$arResult["q"]?>">
+		</div>
+		<div class="mb-3">
+			<select class="form-select form-select-sm" name="where">
 				<?foreach($arResult["WHERE"] as $k => $v)
 				{
 					?><option value="<?=$k?>"<?=$k==$arResult["where"]?" selected":""?>><?=$v?></option><?
 				}
 				?>
-				</select>
-			</div>
-			<div class="blog-search-submit"><input type="submit" value="<?=GetMessage("BLOG_SEARCH_BUTTON")?>"></div>
-
+			</select>
+		</div>
+		<input type="submit" class="btn btn-primary" value="<?=GetMessage("BLOG_SEARCH_BUTTON")?>">
 		<?if($arResult["how"]=="d"):?>
 			<input type="hidden" name="how" value="d">
 		<?endif;?>
-		</form>
-		</div>
-	</li>
-</ul>
+	</form>
+</div>
+
+

@@ -26,11 +26,11 @@ else
 			{
 				?>
 			
-			<div class="blog-mainpage-item">
+			<div class="bg-white">
 			<?if(intval($arBlog["OWNER_ID"]) > 0)
 			{
 				?>
-				<div class="blog-author">
+				<div class="link-primary" >
 				<?if($arParams["SEO_USER"] == "Y"):?>
 					<noindex>
 						<a class="blog-author-icon" href="<?=$arBlog["urlToAuthor"]?>" rel="nofollow"></a>
@@ -92,7 +92,7 @@ else
 			}
 			?>
 
-			<div class="blog-mainpage-title"><a href="<?=$arBlog["urlToBlog"]?>"><?echo $arBlog["NAME"]; ?></a></div>
+			<div class="blog-mainpage-title"><a class="link-primary" href="<?=$arBlog["urlToBlog"]?>"><?echo $arBlog["NAME"]; ?></a></div>
 			<?if($arBlog["DESCRIPTION"] <> '')
 			{
 				?>
