@@ -8,6 +8,7 @@
     transition: .3s;
     position: relative;
 }
+
 .jumbotron a {
     text-shadow: none;
 }
@@ -16,11 +17,95 @@
     background-image: url("images/news.jpg");
     background-size: cover;
 }
+
 .jumbotron-articles {
     background-image: url("images/articles.jpg");
     background-size: cover;
 }
+
 .jumbotron-blog {
     background-image: url("images/blog.jpg");
     background-size: cover;
+}
+
+.contacts a {
+    /* padding-top: 6px; */
+    color: #288be6;
+    text-decoration: none;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.header-email {
+    padding-left: 30px;
+    background-image: url("images/icon-email-header.svg");
+}
+
+.header-phone {
+    padding-left: 25px;
+    background-image: url("images/icon-phone-header.svg");
+}
+
+.header-github {
+    padding-left: 50px;
+    background-image: url("images/icon-github-header.svg");
+    background-size: 30%;
+}
+
+.avatar {
+    width: 250px; 
+    height: 250px; 
+    background: url("images/profile.jpg") no-repeat 30px 0;
+    background-size: auto 250px;
+}
+
+.skills-list {
+    margin: 0;
+    padding: 0;
+}
+
+.skills-list dt {
+    font-weight: normal;
+    padding-left: 32px;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.skill-java {
+    background-image: url("images/icon-java.png");
+}
+
+.skill-html {
+    background-image: url("images/icon-html.svg");
+}
+
+.skill-css {
+    background-image: url("images/icon-css.svg");
+}
+
+.skill-js {
+    background-image: url("images/icon-js.png");
+}
+
+.skill-php {
+    background-image: url("images/icon-php.png");
+}
+
+.level {
+    margin: 4px 0 16px;
+    padding: 0;
+    box-sizing: initial;
+    height: 14px;
+    font-size: 0;
+    background-color: #ffffff;
+    border: 1px solid #86c3fa;
+    border-radius: 8px;
+}
+
+.level div {
+    margin: 1px;
+    height: 12px;
+    background: #4481eb;
+    background: linear-gradient(to right, #4481eb 0%, #04befe 100%);
+    border-radius: 6px;
 }

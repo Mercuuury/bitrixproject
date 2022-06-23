@@ -2,8 +2,7 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetPageProperty("not_show_nav_chain", "Y");
 $APPLICATION->SetTitle("Новости");
-?><br>
-<?$APPLICATION->IncludeComponent(
+?><?$APPLICATION->IncludeComponent(
 	"bitrix:news",
 	"bootstrap_v5",
 	Array(
@@ -31,7 +30,7 @@ $APPLICATION->SetTitle("Новости");
 		"DETAIL_PAGER_TITLE" => "Страница",
 		"DETAIL_PROPERTY_CODE" => array("",""),
 		"DETAIL_SET_CANONICAL_URL" => "N",
-		"DISPLAY_BOTTOM_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "Y",
 		"DISPLAY_DATE" => "Y",
 		"DISPLAY_NAME" => "Y",
 		"DISPLAY_PICTURE" => "Y",
@@ -47,13 +46,13 @@ $APPLICATION->SetTitle("Новости");
 		"MESSAGE_404" => "",
 		"META_DESCRIPTION" => "-",
 		"META_KEYWORDS" => "-",
-		"NEWS_COUNT" => "20",
+		"NEWS_COUNT" => "6",
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
 		"PAGER_SHOW_ALL" => "N",
 		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => ".default",
+		"PAGER_TEMPLATE" => "bootstrap_v4",
 		"PAGER_TITLE" => "Новости",
 		"PREVIEW_TRUNCATE_LEN" => "",
 		"SEF_FOLDER" => "/news/",
@@ -77,4 +76,5 @@ $APPLICATION->SetTitle("Новости");
 		"USE_SEARCH" => "N",
 		"USE_SHARE" => "N"
 	)
-);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);?><br>
+ <br><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

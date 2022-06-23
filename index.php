@@ -3,7 +3,7 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Игровой интернет-портал");
 ?>
 
-<div class="jumbotrons">
+<div class="jumbotrons mb-5">
     <div class="p-5 mb-4 bg-light rounded-3 jumbotron jumbotron-news">
         <div class="container-fluid py-5 text-light">
             <div>

@@ -16,7 +16,7 @@ $this->setFrameMode(true);
 	<div class="container-fluid"> -->
 		<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
 			<img
-				class="detail_picture mb-3 mx-auto d-block"
+				class="detail_picture img-fluid mb-3 mx-auto d-block"
 				border="0"
 				src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>"
 				width="<?=$arResult["DETAIL_PICTURE"]["WIDTH"]?>"
