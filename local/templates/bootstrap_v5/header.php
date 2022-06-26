@@ -33,6 +33,7 @@ global $USER;
 				<li><a href="/news" class="nav-link px-2 <?$curSection == 'news' ? print('link-secondary') : print('link-dark');?>">Новости</a></li>
 				<li><a href="/articles" class="nav-link px-2 <?$curSection == 'articles' ? print('link-secondary') : print('link-dark');?>">Статьи</a></li>
 				<li><a href="/blogs" class="nav-link px-2 <?$curSection == 'blogs' ? print('link-secondary') : print('link-dark');?>">Блоги</a></li>
+				<li><a href="/tests" class="nav-link px-2 <?$curSection == 'tests' ? print('link-secondary') : print('link-dark');?>">Тесты</a></li>
 				<li><a href="/about" class="nav-link px-2 <?$curSection == 'about' ? print('link-secondary') : print('link-dark');?>">О проекте</a></li>
 				<li><a href="/contacts" class="nav-link px-2 <?$curSection == 'contacts' ? print('link-secondary') : print('link-dark');?>">Контакты</a></li>
 			</ul>

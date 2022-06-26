@@ -16,6 +16,14 @@ $arUrlRewrite=array (
     'PATH' => '/articles/section.php',
     'SORT' => 100,
   ),
+  11 => 
+  array (
+    'CONDITION' => '#^/tests/([\\w\\d\\-]+)(\\?(.*))?#',
+    'RULE' => 'ELEMENT_CODE=$1',
+    'ID' => '',
+    'PATH' => '/tests/detail.php',
+    'SORT' => 100,
+  ),
   0 => 
   array (
     'CONDITION' => '#^\\/?\\/mobileapp/jn\\/(.*)\\/.*#',
