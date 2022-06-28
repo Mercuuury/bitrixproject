@@ -25,9 +25,9 @@ $(document).ready(function()
                         <label for="result-`+r_num+`-title" class="form-label">Заголовок результата</label>
                         <input type="text" class="form-control form-control-sm" id="result-`+r_num+`-title" name="results[result-`+r_num+`][title]" required>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="mb-3">
                         <label for="result-`+r_num+`-desc" class="form-label">Описание результата</label>
-                        <input type="text" class="form-control form-control-sm" id="result-`+r_num+`-desc" name="results[result-`+r_num+`][desc]" required>
+                        <textarea class="form-control form-control-sm" id="result-`+r_num+`-desc" name="results[result-`+r_num+`][desc]" rows="1" required></textarea>
                     </div>
                     <div class="col-md-5 mb-3">
                         <label for="result-`+r_num+`-preview-picture" class="form-label">Картинка для анонса</label>

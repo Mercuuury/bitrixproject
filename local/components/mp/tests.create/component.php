@@ -94,7 +94,7 @@ if(!isset($_POST['title']) || $_POST['title'] == 'BX_DEBUG') {
             'IBLOCK_ID' => 6,
             'ACTIVE' => 'Y',
             'NAME' => $result['title'],
-            'CODE' => CUtil::translit($question['title'], "ru", array("replace_space"=>"-","replace_other"=>"-")),
+            'CODE' => CUtil::translit($result['title'], "ru", array("replace_space"=>"-","replace_other"=>"-")),
             'PREVIEW_TEXT' => $result['desc'],
             'PREVIEW_PICTURE' => [
                 "name" => $_FILES['results']['name'][$resultKey]['preview-picture'],
