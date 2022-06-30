@@ -2,7 +2,51 @@
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 CModule::IncludeModule('iblock');
+if(isset($_POST['answers']) && isset($_POST['score'])) {
+    $score = $_POST['score'];
+    $answers = json_decode($_POST['answers']);
 
+    /*
+    |   Test results
+    */
+    $arFilterResults = [
+        'IBLOCK_CODE' => 'results',
+        'PROPERTY_TEST_ID' => $arResult['TEST']['ID'],
+    ];
+    $dbResResults = CIBlockElement::GetList(
+        [],
+        $arFilterResults,
+        false,
+        false,
+        [
+            'ID',
+            'NAME',
+            'PREVIEW_PICTURE',
+            'PREVIEW_TEXT',
+            'PROPERTY_TEST_ID',
+            'PROPERTY_REQUIRED_SCORE',
+        ]
+    );
+
+    while ($arResResult = $dbResResults->GetNext()) {
+        $arResResult['PREVIEW_PICTURE_SRC'] = CFile::GetPath($arResResult['PREVIEW_PICTURE']);
+        $arResults[] = $arResResult;
+    }
+
+    $result = [
+        'index' => null,
+        'value' => null,
+    ];
+    foreach ($arResults as $arKey => $resultVal) {
+        $reqScore = $resultVal['PROPERTY_REQUIRED_SCORE_VALUE'];
+        if ($score >= $reqScore && $reqScore >= $result['value']) {
+            $result['index'] = $arKey;
+            $result['value'] = $reqScore;
+        }
+    }
+}
+$arResult['FINAL'] = $arResults[$result['index']];
+// echo '<pre>', print_r(), '</pre>';
 /*
 |--------------------------------------------------------------------------
 |                                Test info
@@ -89,36 +133,6 @@ while ($arResQuestion = $dbResQuestions->GetNext()) {
     $arResult['QUESTIONS'][] = $arResQuestion;
 }
 
-/*
-|--------------------------------------------------------------------------
-|                              Test results
-|--------------------------------------------------------------------------
-*/
-
-$arFilterResults = [
-    'IBLOCK_CODE' => 'results',
-    'PROPERTY_TEST_ID' => $arResult['TEST']['ID'],
-];
-$dbResResults = CIBlockElement::GetList(
-    [],
-    $arFilterResults,
-    false,
-    false,
-    [
-        'ID',
-        'NAME',
-        'PREVIEW_PICTURE',
-        'PREVIEW_TEXT',
-        'PROPERTY_TEST_ID',
-        'PROPERTY_REQUIRED_SCORE',
-    ]
-);
-
-while ($arResResult = $dbResResults->GetNext()) {
-    $arResResult['PREVIEW_PICTURE_SRC'] = CFile::GetPath($arResResult['PREVIEW_PICTURE']);
-    $arResult['RESULTS'][] = $arResResult;
-}
-
 function getTermination($num)
 {
     $number = substr($num, -2);
@@ -145,5 +159,97 @@ $this->includeComponentTemplate();
 $jsArr = json_encode($arResult);
 ?>
 <script>
-    // console.log(<?=$jsArr;?>)
+    let arResult = <?= $jsArr; ?>;
+    let arAnswers = [];
+    let score = 0;
+    let curQuestionIdx = 0;
+
+    console.log(arResult);
+
+    $(document).ready(function() {
+
+        function appendQuestion() 
+        {
+            let nextBtn = `<div class="d-grid">
+                            <button class="btn btn-success btn-continue" type="button" style="display: none">Дальше</button>
+                        </div>`
+            if (curQuestionIdx + 1 == arResult['TEST']['PROPERTY_QUESTION_COUNT_VALUE']) {
+                nextBtn = `<form method='POST'>
+                            <div class="d-grid">
+                                <input id="scoreIpt" type="hidden" name="score">
+                                <input id="answersIpt" type="hidden" name="answers">
+                                <input class="btn btn-success btn-end" type="submit" value='Результат' style="display: none">
+                            </div>
+                        </form>`
+            }
+
+            let answers = '';
+            arResult['QUESTIONS'][curQuestionIdx]['ANSWERS'].forEach(function(answer, aidx, arr) {
+                let plus;
+                (answer['PROPERTY_SCORE_VALUE'] >= 0) ? plus = '+': plus = '';
+                answers += `
+                <div class="d-grid mb-2 answer">
+                    <input type="radio" class="btn-check" id="q` + curQuestionIdx + `a` + aidx + `" autocomplete="off" data-aid="` + aidx + `" data-qid="` + curQuestionIdx + `">
+                    <label class="btn btn-outline-success rounded-0 shadow-none" for="q` + curQuestionIdx + `a` + aidx + `">` + answer['NAME'] + `</label>
+                    <div class="bg-light text-dark px-2 pt-2 qa-desc" style="display: none">
+                        <p>
+                            <span class="px-2">` + plus + `` + answer['PROPERTY_SCORE_VALUE'] + `</span>
+                            ` + answer['DETAIL_TEXT'] + `
+                            <br><span class="px-2">50%</span> ответили так же
+                        </p>
+                    </div>
+                </div>
+                `;
+            });
+
+            $('.questions').append(`
+            <div class="card mb-3 question">
+                <div class="card-body">
+                    <h5 class="card-title ">` + arResult['TEST']['NAME'] + `</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Вопрос ` + (curQuestionIdx + 1) + `/` + arResult['TEST']['PROPERTY_QUESTION_COUNT_VALUE'] + `</h6>
+                </div>
+                <img src="` + arResult['QUESTIONS'][curQuestionIdx]['PREVIEW_PICTURE_SRC'] + `" alt="` + arResult['QUESTIONS'][curQuestionIdx]['NAME'] + `" style="max-height: 300px;">
+                <div class="card-body">
+                    <p class="card-text ">` + arResult['QUESTIONS'][curQuestionIdx]['NAME'] + `</p>
+                    <hr>
+                    ` + answers + `
+                    ` + nextBtn + `
+                </div>
+            </div>
+            `);
+
+            $('html, body').animate({
+                scrollTop: $('.question').last().offset().top
+            }, 'fast');
+
+            $('.question').last().find('.btn-check').click(function() {
+                arAnswers.push(arResult['QUESTIONS'][$(this).data('qid')]['ANSWERS'][$(this).data('aid')]);
+                $(this).parent().parent().find('.btn-check').prop('disabled', true);
+                $(this).parent().find('.qa-desc').show();
+                $(this).parent().parent().find('.btn-continue').show();
+                $(this).parent().parent().find('.btn-end').show();
+            });
+
+            curQuestionIdx++;
+        }
+
+        function setHandlers() {
+            $('.btn-continue').on('click', function() {
+                $(this).prop('disabled', true);
+                appendQuestion();
+                setHandlers();
+            });
+
+            $('.btn-end').on('click', function() {
+                arAnswers.forEach(answer => {
+                    score += Number(answer['PROPERTY_SCORE_VALUE']);
+                });
+
+                $('#scoreIpt').val(score);
+                $('#answersIpt').val(JSON.stringify(arAnswers));
+            });
+        }
+
+        setHandlers();
+    });
 </script>
