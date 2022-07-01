@@ -106,6 +106,7 @@ if(!isset($_POST['title']) || $_POST['title'] == 'BX_DEBUG') {
             "PROPERTY_VALUES" => array(
                 "REQUIRED_SCORE" => $result['score'],
                 "TEST_ID" => $testId,
+                "ENDING_COUNT" => 0,
             ),
         ]
         );

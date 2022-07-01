@@ -2,13 +2,49 @@
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 CModule::IncludeModule('iblock');
+
+// echo '<pre>', print_r(), '</pre>';
+/*
+|--------------------------------------------------------------------------
+|                                Test info
+|--------------------------------------------------------------------------
+*/
+
+$arFilterTest = [
+    'IBLOCK_CODE' => 'tests',
+    'CODE' => $_REQUEST['ELEMENT_CODE'],
+];
+
+$dbResTest = CIBlockElement::GetList(
+    [],
+    $arFilterTest,
+    false,
+    false,
+    [
+        'ID',
+        'NAME',
+        'DETAIL_TEXT',
+        'PREVIEW_PICTURE',
+        'DETAIL_PICTURE',
+        'PROPERTY_QUESTION_COUNT',
+        'PROPERTY_PASSES_COUNT',
+    ]
+);
+
+$arResTest = $dbResTest->GetNext();
+$arResTest['PREVIEW_PICTURE_SRC'] = CFile::GetPath($arResTest['PREVIEW_PICTURE']);
+$arResult['TEST'] = $arResTest;
+
+/*
+|--------------------------------------------------------------------------
+|                                Test results
+|--------------------------------------------------------------------------
+*/
+
 if(isset($_POST['answers']) && isset($_POST['score'])) {
     $score = $_POST['score'];
-    $answers = json_decode($_POST['answers']);
+    $answers = json_decode($_POST['answers'], true);
 
-    /*
-    |   Test results
-    */
     $arFilterResults = [
         'IBLOCK_CODE' => 'results',
         'PROPERTY_TEST_ID' => $arResult['TEST']['ID'],
@@ -44,39 +80,18 @@ if(isset($_POST['answers']) && isset($_POST['score'])) {
             $result['value'] = $reqScore;
         }
     }
+    $arResult['FINAL'] = $arResults[$result['index']];
+
+    // UPDATE PASSES_COUNT & ANSWERS_COUNT & ENDING_COUNT VALUES
+    // echo '<pre>', print_r($answers), '</pre>';
+    foreach ($answers as $aKey => $answer) {
+        CIBlockElement::SetPropertyValues($answer['ID'], 5, $answer['PROPERTY_ANSWERS_COUNT_VALUE'] + 1, 'ANSWERS_COUNT');
+    }
+    CIBlockElement::SetPropertyValues($arResult['TEST']['ID'], 3, $arResult['TEST']['PROPERTY_PASSES_COUNT_VALUE'] + 1, 'PASSES_COUNT');
+    CIBlockElement::SetPropertyValues($arResult['FINAL']['ID'], 6, $arResult['FINAL']['PROPERTY_ENDING_COUNT_VALUE'] + 1, 'ENDING_COUNT');
 }
-$arResult['FINAL'] = $arResults[$result['index']];
-// echo '<pre>', print_r(), '</pre>';
-/*
-|--------------------------------------------------------------------------
-|                                Test info
-|--------------------------------------------------------------------------
-*/
 
-$arFilterTest = [
-    'IBLOCK_CODE' => 'tests',
-    'CODE' => $_REQUEST['ELEMENT_CODE'],
-];
 
-$dbResTest = CIBlockElement::GetList(
-    [],
-    $arFilterTest,
-    false,
-    false,
-    [
-        'ID',
-        'NAME',
-        'DETAIL_TEXT',
-        'PREVIEW_PICTURE',
-        'DETAIL_PICTURE',
-        'PROPERTY_QUESTION_COUNT',
-        'PROPERTY_PASSES_COUNT',
-    ]
-);
-
-$arResTest = $dbResTest->GetNext();
-$arResTest['PREVIEW_PICTURE_SRC'] = CFile::GetPath($arResTest['PREVIEW_PICTURE']);
-$arResult['TEST'] = $arResTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -187,6 +202,8 @@ $jsArr = json_encode($arResult);
             arResult['QUESTIONS'][curQuestionIdx]['ANSWERS'].forEach(function(answer, aidx, arr) {
                 let plus;
                 (answer['PROPERTY_SCORE_VALUE'] >= 0) ? plus = '+': plus = '';
+                let respPercent = Math.round(answer['PROPERTY_ANSWERS_COUNT_VALUE'] / arResult['TEST']['PROPERTY_PASSES_COUNT_VALUE'] * 100)  || 0;
+                respPercent = isFinite(respPercent) ? respPercent : 0;
                 answers += `
                 <div class="d-grid mb-2 answer">
                     <input type="radio" class="btn-check" id="q` + curQuestionIdx + `a` + aidx + `" autocomplete="off" data-aid="` + aidx + `" data-qid="` + curQuestionIdx + `">
@@ -195,7 +212,7 @@ $jsArr = json_encode($arResult);
                         <p>
                             <span class="px-2">` + plus + `` + answer['PROPERTY_SCORE_VALUE'] + `</span>
                             ` + answer['DETAIL_TEXT'] + `
-                            <br><span class="px-2">50%</span> ответили так же
+                            <br><span class="px-2">`+respPercent+`%</span> ответили так же
                         </p>
                     </div>
                 </div>
