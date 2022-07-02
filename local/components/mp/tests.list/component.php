@@ -31,5 +31,5 @@ while($arRes = $dbRes->GetNext()) {
     );
     $arResult['DATA'][] = $arRes;
 }
-// echo '<pre>', print_r($arResult), '</pre>';
+
 $this->includeComponentTemplate();

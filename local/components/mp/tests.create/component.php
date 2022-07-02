@@ -3,13 +3,16 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 CJSCore::Init(array("jquery"));
 CModule::IncludeModule('iblock');
 
-if(!isset($_POST['title']) || $_POST['title'] == 'BX_DEBUG') {
+if(!isset($_POST['title']) || $_POST['title'] == 'BX_DEBUG') 
+{
     if ($_POST['title'] == 'BX_DEBUG') {
         echo '<pre>', print_r($_POST), '</pre>';
         echo '<pre>', print_r($_FILES), '</pre>';
     }
     $this->includeComponentTemplate();
-} else {
+} 
+else 
+{
     $obElTest = new CIBlockElement();
     $testId = $obElTest->Add(
         [
@@ -27,11 +30,6 @@ if(!isset($_POST['title']) || $_POST['title'] == 'BX_DEBUG') {
         ),
     ]
     );
-    // if ($testId) {
-    //     echo "New test ID: ".$testId;
-    // } else {
-    //     echo $obElTest->LAST_ERROR;
-    // }
 
     foreach ($_POST['questions'] as $questionKey => $question) {
         $obElQuestion = new CIBlockElement();
@@ -57,11 +55,6 @@ if(!isset($_POST['title']) || $_POST['title'] == 'BX_DEBUG') {
             ),
         ]
         );
-        // if ($questionId) {
-        //     echo "New question ID: ".$questionId;
-        // } else {
-        //     echo $obElQuestion->LAST_ERROR;
-        // }
 
         foreach ($question['answers'] as $answer) {
             $obElAnswer = new CIBlockElement();
@@ -79,11 +72,6 @@ if(!isset($_POST['title']) || $_POST['title'] == 'BX_DEBUG') {
                 ),
             ]
             );
-            // if ($answerId) {
-            //     echo "New answer ID: ".$answerId;
-            // } else {
-            //     echo $obElAnswer->LAST_ERROR;
-            // }
         }
     }
 
@@ -110,11 +98,6 @@ if(!isset($_POST['title']) || $_POST['title'] == 'BX_DEBUG') {
             ),
         ]
         );
-        // if ($resultId) {
-        //     echo "New question ID: ".$resultId;
-        // } else {
-        //     echo $obElResult->LAST_ERROR;
-        // }
     }
 
     LocalRedirect("/tests/".CUtil::translit($_POST['title'], "ru", array("replace_space"=>"-","replace_other"=>"-")));
