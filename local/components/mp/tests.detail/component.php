@@ -3,7 +3,6 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 CModule::IncludeModule('iblock');
 
-// echo '<pre>', print_r(), '</pre>';
 /*
 |--------------------------------------------------------------------------
 |                                Test info
@@ -61,6 +60,7 @@ if(isset($_POST['answers']) && isset($_POST['score'])) {
             'PREVIEW_TEXT',
             'PROPERTY_TEST_ID',
             'PROPERTY_REQUIRED_SCORE',
+            'PROPERTY_ENDING_COUNT',
         ]
     );
 
@@ -82,16 +82,13 @@ if(isset($_POST['answers']) && isset($_POST['score'])) {
     }
     $arResult['FINAL'] = $arResults[$result['index']];
 
-    // UPDATE PASSES_COUNT & ANSWERS_COUNT & ENDING_COUNT VALUES
-    // echo '<pre>', print_r($answers), '</pre>';
+    # Update PASSES_COUNT & ANSWERS_COUNT & ENDING_COUNT values
     foreach ($answers as $aKey => $answer) {
         CIBlockElement::SetPropertyValues($answer['ID'], 5, $answer['PROPERTY_ANSWERS_COUNT_VALUE'] + 1, 'ANSWERS_COUNT');
     }
     CIBlockElement::SetPropertyValues($arResult['TEST']['ID'], 3, $arResult['TEST']['PROPERTY_PASSES_COUNT_VALUE'] + 1, 'PASSES_COUNT');
     CIBlockElement::SetPropertyValues($arResult['FINAL']['ID'], 6, $arResult['FINAL']['PROPERTY_ENDING_COUNT_VALUE'] + 1, 'ENDING_COUNT');
 }
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -119,7 +116,7 @@ $dbResQuestions = CIBlockElement::GetList(
 );
 
 while ($arResQuestion = $dbResQuestions->GetNext()) {
-    // Question answers
+    # Question answers
     $arFilterAnswers = [
         'IBLOCK_CODE' => 'answers',
         'PROPERTY_QUESTION_ID' => $arResQuestion['ID'],
@@ -168,21 +165,19 @@ function getTermination($num)
     return  $num . ' вопрос' . $term;
 }
 
-// echo '<pre>', print_r($arResult), '</pre>';
 $this->includeComponentTemplate();
 
 $jsArr = json_encode($arResult);
 ?>
+
 <script>
     let arResult = <?= $jsArr; ?>;
     let arAnswers = [];
     let score = 0;
     let curQuestionIdx = 0;
 
-    console.log(arResult);
-
-    $(document).ready(function() {
-
+    $(document).ready(function() 
+    {
         function appendQuestion() 
         {
             let nextBtn = `<div class="d-grid">
