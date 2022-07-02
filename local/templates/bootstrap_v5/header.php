@@ -10,7 +10,7 @@ global $USER;
 ?>
 
 <!DOCTYPE html>
-<html xml:lang="<?= LANGUAGE_ID ?>" lang="<?= LANGUAGE_ID ?>">
+<html xml:lang="<?= LANGUAGE_ID ?>" lang="<?= LANGUAGE_ID ?>" class="h-100">
 
 <head>
 	<title><? $APPLICATION->ShowTitle() ?></title>
@@ -20,7 +20,7 @@ global $USER;
 	<? $APPLICATION->ShowHead(); ?>
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
 	<div id="panel"><? $APPLICATION->ShowPanel(); ?></div>
 
 	<div class="container">
@@ -55,5 +55,5 @@ global $USER;
 		</header>
 	</div>
 
-	<main>
+	<main class="flex-shrink-0">
 		<div class="container">
