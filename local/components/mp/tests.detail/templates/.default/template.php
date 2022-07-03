@@ -46,11 +46,11 @@ $jsArr = json_encode($arResult);
         <div class="container-fluid">
             <h2 class="text-center py-2">Статистика</h2>
             <div class="row row-cols-1 row-cols-md-2 g-4">
-                <? foreach ($arResult['QUESTIONS'] as $qKey => $question) : ?>
+                <? foreach ($arResult['QUESTIONS'] as $qKey => $question): ?>
                     <div class="col">
                         <div class="card">
                             <div class="card-body text-center">
-                                <h5 class="card-title">Вопрос <?= $qkey + 1; ?></h5>
+                                <h5 class="card-title">Вопрос <?= $qKey + 1; ?></h5>
                                 <p class="card-text"><?= $question['NAME']; ?></p>
                                 <canvas id="q<?= $qKey + 1; ?>chart"></canvas>
                             </div>
@@ -86,6 +86,11 @@ $jsArr = json_encode($arResult);
                     type: 'polarArea',
                     data: data,
                     options: {
+                        plugins: {
+                            legend: {
+                                align: 'left',
+                            }
+                        },
                         scales: {
                             r: {
                                 ticks: {
